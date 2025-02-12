@@ -68,16 +68,26 @@ func _enter_tree():
 	if not get_tree().get_root().size_changed.is_connected(size_changed):
 		get_tree().get_root().size_changed.connect(size_changed)
 	_init_keyboard()
+	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 
 #func _exit_tree():
 #    pass
 
-#func _process(delta):
-#    pass
+func _process(delta):
+	if self.current_focus_object != null and self.current_focus_object is LineEdit and self.current_focus_object.is_editing():
+		self.is_showing = true
+		self.focus_object = self.current_focus_object
 
-func _input(event):
-	_update_auto_display_on_input(event)
+	if self.is_showing and (self.current_focus_object == null or !self.current_focus_object.is_visible_in_tree() || !self.is_ancestor_of(self.current_focus_object)):
+		if self.prev_focus_child != null and self.prev_focus_child.is_visible_in_tree():
+			self.prev_focus_child.grab_focus()
+		else:
+			_show_keyboard()
 
+func _on_gui_focus_changed(control: Control) -> void:
+	self.current_focus_object = control
+	if self.is_ancestor_of(control):
+		self.prev_focus_child = control
 
 func size_changed():
 	if auto_show and visible:
@@ -121,7 +131,10 @@ func _init_keyboard():
 ## HIDE/SHOW
 ###########################
 
-var focus_object = null
+var focus_object: Control = null
+var prev_focus_child: Control = null
+var current_focus_object: Control = null
+var is_showing = false
 
 func show():
 	_show_keyboard()
@@ -129,39 +142,13 @@ func show():
 func hide():
 	_hide_keyboard()
 
-var released = true
-func _update_auto_display_on_input(event):
-	if auto_show == false:
-		return
-
-	if event is InputEventMouseButton:
-		released = !released
-		if released == false:
-			return
-
-		var focus_object = get_viewport().gui_get_focus_owner()
-		if focus_object != null:
-			var click_on_input = Rect2(focus_object.global_position, focus_object.size).has_point(get_global_mouse_position())
-			var click_on_keyboard = Rect2(global_position, size).has_point(get_global_mouse_position())
-
-			if click_on_input:
-				if is_keyboard_focus_object(focus_object):
-					_show_keyboard()
-			elif click_on_keyboard:
-				_show_keyboard()
-			else:
-				_hide_keyboard()
-
-	if event is InputEventKey:
-		var focus_object = get_viewport().gui_get_focus_owner()
-		if focus_object != null:
-			if event.keycode == KEY_ENTER:
-				if is_keyboard_focus_object_complete_on_enter(focus_object):
-					focus_object.release_focus()
-					_hide_keyboard()
-
-
 func _hide_keyboard(key_data=null):
+	self.is_showing = false
+	if self.focus_object != null and self.focus_object.is_visible_in_tree():
+		self.focus_object.grab_focus()
+		self.focus_object.unedit()
+	self.focus_object = null
+	self.prev_focus_child = null
 	if animate:
 		var new_y_pos = get_viewport().get_visible_rect().size.y + 10
 		animate_position(Vector2(position.x, new_y_pos), true)
@@ -170,6 +157,7 @@ func _hide_keyboard(key_data=null):
 
 
 func _show_keyboard(key_data=null):
+	self.is_showing = true
 	change_visibility(true)
 	if animate:
 		var new_y_pos = get_viewport().get_visible_rect().size.y - size.y
@@ -189,6 +177,7 @@ func animate_position(new_position, trigger_visibility:bool=false):
 
 func change_visibility(value):
 	if value:
+		get_children(false)[0].get_children(false)[0].get_children(false)[0].get_children(false)[0].grab_focus()
 		super.show()
 	else:
 		_set_caps_lock(false)
@@ -214,6 +203,7 @@ func set_active_layout_by_name(name):
 
 func _show_layout(layout):
 	layout.show()
+	layout.get_children(false)[0].get_children(false)[0].get_children(false)[0].grab_focus()
 	current_layout = layout
 
 
@@ -287,12 +277,12 @@ func _key_released(key_data):
 		input_event_key.keycode = key
 		input_event_key.unicode = key
 
+		if self.focus_object != null:
+			self.focus_object.edit()
 		Input.parse_input_event(input_event_key)
-
-		###########################
-		## DISABLE CAPSLOCK AFTER 
-		###########################
-		_set_caps_lock(false)
+		Input.flush_buffered_events()
+		if self.prev_focus_child != null:
+			self.prev_focus_child.grab_focus()
 
 
 ###########################

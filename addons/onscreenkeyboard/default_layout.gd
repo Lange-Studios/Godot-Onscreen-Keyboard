@@ -64,16 +64,6 @@ func _init():
 					"display": "."
 				},
 				{
-					"type": "special",
-					"output": "LeftArrow",
-					"display-icon": "PREDEFINED:LEFT"
-				},
-				{
-					"type": "special",
-					"output": "RightArrow",
-					"display-icon": "PREDEFINED:RIGHT"
-				},
-				{
 					"type": "special-hide-keyboard",
 					"display-icon": "PREDEFINED:HIDE",
 					"stretch-ratio": 2
@@ -135,16 +125,6 @@ func _init():
 						"type": "char",
 						"output": "Space",
 						"stretch-ratio": 5
-					},
-					{
-						"type": "special",
-						"output": "LeftArrow",
-						"display-icon": "PREDEFINED:LEFT"
-					},
-					{
-						"type": "special",
-						"output": "RightArrow",
-						"display-icon": "PREDEFINED:RIGHT"
 					},
 					{
 						"type": "special-hide-keyboard",
