@@ -18,7 +18,8 @@ func _init():
 						"stretch-ratio": 1.5,
 						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
 						"action": "gamepad_virtual_keyboard_back",
-						"alignment": "right"
+						"alignment": "right",
+						"hbox-alignment": 2
 					}
 				]
 			),
@@ -31,7 +32,9 @@ func _init():
 					"stretch-ratio": 1.5,
 					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
 					"action": "gamepad_virtual_keyboard_enter",
-					"alignment": "right"
+					"alignment": "right",
+					"hbox-alignment": 2,
+					"text-alignment": 0,
 				}]
 			),
 			make_row(
@@ -39,9 +42,6 @@ func _init():
 					"type": "special-shift",
 					"display-icon": "PREDEFINED:SHIFT",
 					"stretch-ratio": 1.5,
-					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
-					"action": "gamepad_virtual_keyboard_shift",
-					"alignment": "right"
 				}],
 				"zxcvbnm",
 				[{
@@ -50,7 +50,8 @@ func _init():
 					"stretch-ratio": 2,
 					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
 					"action": "gamepad_virtual_keyboard_shift",
-					"alignment": "right"
+					"alignment": "right",
+					"hbox-alignment": 2
 				}]
 			),
 			{
@@ -85,7 +86,8 @@ func _init():
 					"stretch-ratio": 2,
 					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
 					"action": "gamepad_virtual_keyboard_close",
-					"alignment": "left"
+					"alignment": "right",
+					"hbox-alignment": 2
 				}
 				]
 			}
@@ -105,7 +107,8 @@ func _init():
 						"stretch-ratio": 1.5,
 						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
 						"action": "gamepad_virtual_keyboard_back",
-						"alignment": "right"
+						"alignment": "right",
+						"hbox-alignment": 2
 					}
 				]
 			),
@@ -118,8 +121,10 @@ func _init():
 					"display": "Enter",
 					"stretch-ratio": 2,
 					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
-					"action": "gamepad_virtual_keyboard_return",
-					"alignment": "right"
+					"action": "gamepad_virtual_keyboard_enter",
+					"alignment": "right",
+					"hbox-alignment": 2,
+					"text-alignment": 0,
 				}]
 			),
 			make_row(
@@ -160,7 +165,8 @@ func _init():
 						"stretch-ratio": 2,
 						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
 						"action": "gamepad_virtual_keyboard_close",
-						"alignment": "right"
+						"alignment": "right",
+						"hbox-alignment": 2
 					}
 				]
 			)

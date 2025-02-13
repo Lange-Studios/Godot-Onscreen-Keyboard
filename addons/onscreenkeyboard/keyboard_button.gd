@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	if not key_data.has("action"):
 		return
 
-	if Input.is_action_just_pressed(key_data.action):
+	if not Engine.is_editor_hint() and Input.is_action_just_pressed(key_data.action):
 		_on_button_down()
 		_on_button_up()
 
@@ -46,6 +46,10 @@ func _init(_key_data):
 		var texture_container = HBoxContainer.new()
 		texture_container.name = "texture_container"
 		texture_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+		if key_data.has("hbox-alignment"):
+			texture_container.alignment = key_data.get("hbox-alignment")
+		if key_data.has("text-alignment"):
+			alignment = key_data.get("text-alignment")
 		add_child(texture_container)
 		texture_container.add_child(icon_tex_rect)
 		# self.icon_alignment = key_data.get("horizontal-alignment")
