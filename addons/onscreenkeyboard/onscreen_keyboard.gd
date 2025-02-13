@@ -76,6 +76,9 @@ func _enter_tree():
 #    pass
 
 func _process(delta):
+	if not auto_show:
+		return
+
 	if self.current_focus_object != null and self.current_focus_object is LineEdit and self.current_focus_object.is_editing():
 		self.is_showing = true
 		self.focus_object = self.current_focus_object
@@ -111,6 +114,7 @@ var tween_position
 var tween_speed = .2
 
 var hide_position = Vector2()
+var is_flushing: bool
 
 func _init_keyboard():
 	if custom_layout_file == null:
@@ -280,10 +284,12 @@ func _key_released(key_data):
 		input_event_key.keycode = key
 		input_event_key.unicode = key
 
+		self.is_flushing = true
 		if self.focus_object != null:
 			self.focus_object.edit()
 		Input.parse_input_event(input_event_key)
 		Input.flush_buffered_events()
+		self.is_flushing = false
 		if self.prev_focus_child != null:
 			self.prev_focus_child.grab_focus()
 
