@@ -85,7 +85,7 @@ func _init():
 					"display-icon": "PREDEFINED:HIDE",
 					"stretch-ratio": 2,
 					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
-					"action": "gamepad_virtual_keyboard_close",
+					"action": "ui_cancel",
 					"alignment": "right",
 					"hbox-alignment": 2
 				}
@@ -164,7 +164,7 @@ func _init():
 						"display-icon": "PREDEFINED:HIDE",
 						"stretch-ratio": 2,
 						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
-						"action": "gamepad_virtual_keyboard_close",
+						"action": "ui_cancel",
 						"alignment": "right",
 						"hbox-alignment": 2
 					}

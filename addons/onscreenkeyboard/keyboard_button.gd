@@ -6,17 +6,29 @@ signal released
 signal down
 
 var icon_tex_rect
+var is_pressing: bool = false
 
-func _process(delta: float) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
 		return
-	
+
 	if not key_data.has("action"):
 		return
 
-	if not Engine.is_editor_hint() and Input.is_action_just_pressed(key_data.action):
-		_on_button_down()
-		_on_button_up()
+	if (event.is_action_released(key_data.action)):
+		is_pressing = false;
+		return
+
+	if is_pressing:
+		return
+
+	if not event.is_action_pressed(key_data.action):
+		return;
+
+	is_pressing = true;
+	_on_button_down()
+	_on_button_up()
+	accept_event()
 
 func _init(_key_data):
 	key_data = _key_data
