@@ -165,7 +165,6 @@ func _hide_keyboard(key_data=null):
 func _show_keyboard(key_data=null):
 	self.is_showing = true
 	change_visibility(true)
-	self.move_to_front()
 	if animate:
 		var new_y_pos = get_viewport().get_visible_rect().size.y - size.y
 		animate_position(Vector2(position.x, new_y_pos))
