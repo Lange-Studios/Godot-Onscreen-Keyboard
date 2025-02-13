@@ -7,11 +7,16 @@ signal down
 
 var icon_tex_rect
 
-func _enter_tree():
-	pass
+func _process(delta: float) -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not key_data.has("action"):
+		return
 
-func _ready():
-	pass # Replace with function body.
+	if Input.is_action_just_pressed(key_data.action):
+		_on_button_down()
+		_on_button_up()
 
 func _init(_key_data):
 	key_data = _key_data
@@ -30,6 +35,22 @@ func _init(_key_data):
 	if key_data.has("stretch-ratio"):
 		size_flags_stretch_ratio = key_data.get("stretch-ratio")
 
+	if key_data.has("button-icon"):
+		var button_icon = load(key_data.get("button-icon")).duplicate()
+		button_icon.path = key_data.get("action")
+		icon_tex_rect = TextureRect.new()
+		icon_tex_rect.ignore_texture_size = true
+		icon_tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon_tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		icon_tex_rect.texture = button_icon
+		var texture_container = HBoxContainer.new()
+		texture_container.name = "texture_container"
+		texture_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+		add_child(texture_container)
+		texture_container.add_child(icon_tex_rect)
+		# self.icon_alignment = key_data.get("horizontal-alignment")
+		# self.expand_icon = true
+
 
 func set_icon_color(color):
 	if icon_tex_rect != null:
@@ -40,8 +61,15 @@ func set_icon(texture):
 	icon_tex_rect = TextureRect.new()
 	icon_tex_rect.ignore_texture_size = true
 	icon_tex_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon_tex_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	icon_tex_rect.texture = texture
-	add_child(icon_tex_rect)
+	var texture_container: HBoxContainer = get_node_or_null("texture_container")
+	if texture_container == null:
+		add_child(icon_tex_rect)
+	else:
+		texture_container.add_child(icon_tex_rect)
+		if key_data.has("alignment") and key_data.alignment == "right":
+			texture_container.move_child(icon_tex_rect, 0)
 
 
 func change_uppercase(value):

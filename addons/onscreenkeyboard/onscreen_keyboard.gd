@@ -64,11 +64,13 @@ signal layout_changed
 ## PANEL 
 ###########################
 
+func _ready() -> void:
+	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
+
 func _enter_tree():
 	if not get_tree().get_root().size_changed.is_connected(size_changed):
 		get_tree().get_root().size_changed.connect(size_changed)
 	_init_keyboard()
-	get_viewport().gui_focus_changed.connect(_on_gui_focus_changed)
 
 #func _exit_tree():
 #    pass

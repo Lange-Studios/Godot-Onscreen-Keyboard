@@ -70,7 +70,9 @@
 							"type": "special",
 							"output": "Backspace",
 							"display-icon": "PREDEFINED:DELETE",
-							"stretch-ratio": 1.5
+							"stretch-ratio": 1.5,
+							"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+							"action": "gamepad_virtual_keyboard_space"
 						}
 					]
 				},

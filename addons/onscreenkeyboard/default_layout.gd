@@ -12,9 +12,13 @@ func _init():
 				"qwertyuiop",
 				[
 					{
+						"type": "special",
 						"output": "Backspace",
 						"display-icon": "PREDEFINED:DELETE",
-						"stretch-ratio": 1.5
+						"stretch-ratio": 1.5,
+						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+						"action": "gamepad_virtual_keyboard_back",
+						"alignment": "right"
 					}
 				]
 			),
@@ -24,20 +28,29 @@ func _init():
 				[{
 					"output": "Return",
 					"display": "Enter",
-					"stretch-ratio": 1.5
+					"stretch-ratio": 1.5,
+					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+					"action": "gamepad_virtual_keyboard_enter",
+					"alignment": "right"
 				}]
 			),
 			make_row(
 				[{
 					"type": "special-shift",
 					"display-icon": "PREDEFINED:SHIFT",
-					"stretch-ratio": 1.5
+					"stretch-ratio": 1.5,
+					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+					"action": "gamepad_virtual_keyboard_shift",
+					"alignment": "right"
 				}],
 				"zxcvbnm",
 				[{
 					"type": "special-shift",
 					"display-icon": "PREDEFINED:SHIFT",
-					"stretch-ratio": 2
+					"stretch-ratio": 2,
+					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+					"action": "gamepad_virtual_keyboard_shift",
+					"alignment": "right"
 				}]
 			),
 			{
@@ -56,7 +69,10 @@ func _init():
 				{
 					"type": "char",
 					"output": "Space",
-					"stretch-ratio": 5
+					"stretch-ratio": 5,
+					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+					"action": "gamepad_virtual_keyboard_space",
+					"alignment": "left"
 				},
 				{
 					"type": "char",
@@ -66,7 +82,10 @@ func _init():
 				{
 					"type": "special-hide-keyboard",
 					"display-icon": "PREDEFINED:HIDE",
-					"stretch-ratio": 2
+					"stretch-ratio": 2,
+					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+					"action": "gamepad_virtual_keyboard_close",
+					"alignment": "left"
 				}
 				]
 			}
@@ -83,7 +102,10 @@ func _init():
 						"type": "special",
 						"output": "Backspace",
 						"display-icon": "PREDEFINED:DELETE",
-						"stretch-ratio": 1.5
+						"stretch-ratio": 1.5,
+						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+						"action": "gamepad_virtual_keyboard_back",
+						"alignment": "right"
 					}
 				]
 			),
@@ -94,7 +116,10 @@ func _init():
 					"type": "special",
 					"output": "Return",
 					"display": "Enter",
-					"stretch-ratio": 2
+					"stretch-ratio": 2,
+					"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+					"action": "gamepad_virtual_keyboard_return",
+					"alignment": "right"
 				}]
 			),
 			make_row(
@@ -124,12 +149,18 @@ func _init():
 					{
 						"type": "char",
 						"output": "Space",
-						"stretch-ratio": 5
+						"stretch-ratio": 5,
+						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+						"action": "gamepad_virtual_keyboard_space",
+						"alignment": "left"
 					},
 					{
 						"type": "special-hide-keyboard",
 						"display-icon": "PREDEFINED:HIDE",
-						"stretch-ratio": 2
+						"stretch-ratio": 2,
+						"button-icon": "res://scenes/controller_icons/gamepad_icon.tres",
+						"action": "gamepad_virtual_keyboard_close",
+						"alignment": "right"
 					}
 				]
 			)
