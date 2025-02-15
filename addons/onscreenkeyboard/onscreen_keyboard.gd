@@ -284,10 +284,15 @@ func _key_released(key_data):
 		input_event_key.unicode = key
 
 		self.is_flushing = true
+		var prev_virtual_keyboard_enabled = false
 		if self.focus_object != null:
+			prev_virtual_keyboard_enabled = self.focus_object.virtual_keyboard_enabled
+			self.focus_object.virtual_keyboard_enabled = false
 			self.focus_object.edit()
 		Input.parse_input_event(input_event_key)
 		Input.flush_buffered_events()
+		if self.focus_object != null:
+			self.focus_object.virtual_keyboard_enabled = prev_virtual_keyboard_enabled
 		self.is_flushing = false
 		if self.prev_focus_child != null:
 			self.prev_focus_child.grab_focus()
