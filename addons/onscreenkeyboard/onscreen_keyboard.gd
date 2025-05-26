@@ -53,6 +53,7 @@ var style_special_keys:StyleBoxFlat = null
 @export var font_color_normal:Color = Color(1,1,1)
 @export var font_color_hover:Color = Color(1,1,1)
 @export var font_color_pressed:Color = Color(1,1,1)
+@export var hide_on_enter: bool = true
 
 ###########################
 ## SIGNALS
@@ -379,6 +380,9 @@ func _create_keyboard(layout_data):
 
 				new_key.released.connect(_key_released)
 
+				if hide_on_enter and key.has("output") and key.get("output") == "Return":
+					new_key.released.connect(_hide_keyboard)
+				
 				if key.has("type"):
 					if key.get("type") == "switch-layout":
 						new_key.released.connect(_switch_layout)
