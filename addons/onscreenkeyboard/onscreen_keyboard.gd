@@ -289,6 +289,7 @@ func _key_released(key_data):
 		if self.focus_object != null:
 			prev_virtual_keyboard_enabled = self.focus_object.virtual_keyboard_enabled
 			self.focus_object.virtual_keyboard_enabled = false
+			self.focus_object.grab_focus()
 			self.focus_object.edit()
 		Input.parse_input_event(input_event_key)
 		Input.flush_buffered_events()
