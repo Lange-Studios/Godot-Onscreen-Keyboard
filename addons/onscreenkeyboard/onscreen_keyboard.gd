@@ -184,10 +184,10 @@ func animate_position(new_position, trigger_visibility:bool=false):
 
 func change_visibility(value):
 	if value:
-		get_children(false)[0].get_children(false)[0].get_children(false)[0].get_children(false)[0].grab_focus()
+		_set_caps_lock(false)
+		set_active_layout_by_name("standart-characters")
 		super.show()
 	else:
-		_set_caps_lock(false)
 		super.hide()
 	visibility_changed.emit()
 
