@@ -293,6 +293,9 @@ func _key_released(key_data):
 			self.focus_object.edit()
 		Input.parse_input_event(input_event_key)
 		Input.flush_buffered_events()
+		input_event_key.pressed = false
+		Input.parse_input_event(input_event_key)
+		Input.flush_buffered_events()
 		if self.focus_object != null:
 			self.focus_object.virtual_keyboard_enabled = prev_virtual_keyboard_enabled
 		self.is_flushing = false
