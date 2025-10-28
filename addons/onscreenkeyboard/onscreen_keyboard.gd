@@ -293,6 +293,7 @@ func _key_released(key_data):
 			self.focus_object.edit()
 		Input.parse_input_event(input_event_key)
 		Input.flush_buffered_events()
+		input_event_key = input_event_key.duplicate(true)
 		input_event_key.pressed = false
 		Input.parse_input_event(input_event_key)
 		Input.flush_buffered_events()
