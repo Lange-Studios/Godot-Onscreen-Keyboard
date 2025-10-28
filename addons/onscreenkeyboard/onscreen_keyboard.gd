@@ -1,5 +1,6 @@
 @tool
 extends PanelContainer
+class_name OnscreenKeyboard
 
 ###########################
 ## SETTINGS
@@ -141,7 +142,7 @@ func _init_keyboard():
 var focus_object: Control = null
 var prev_focus_child: Control = null
 var current_focus_object: Control = null
-var is_showing = false
+static var is_showing = false
 
 func show():
 	_show_keyboard()
