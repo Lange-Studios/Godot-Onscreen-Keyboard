@@ -285,6 +285,22 @@ func _key_released(key_data):
 		input_event_key.keycode = key
 		input_event_key.unicode = key
 
+		# Wait until next frame for all inputs except Return. The reason is because of the
+		# implentation of godot's platform/windows/display_server_windows.cpp _displatch_input_event
+		# function here: https://github.com/godotengine/godot/blob/e4c9950f622a3a750f13b21e8757165bc25ad352/platform/windows/display_server_windows.cpp#L4437-L4440
+		#
+		# What happens is as follows
+		#
+		# 1. Godot detects controller submit while hovering over key
+		# 2. in_dispatch_input_event = true
+		# 3. InputEventKey is created above and flushed below
+		# 4. _dispatch_input_event is called again but in_dispatch_input_event is still true so it returns
+		# 
+		# By awaiting a process_frame, we ensure the _dispatch_input_event method isn't in the current callstack
+		# avoiding the issue above
+		if key_data.get("output") != "Return":
+			await get_tree().process_frame
+
 		self.is_flushing = true
 		var prev_virtual_keyboard_enabled = false
 		if self.focus_object != null:
